@@ -1,0 +1,19 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Checkers</h1>
+    <h1 class="display-4">&#9923</h1>
+    <h1 class="display-4">VS</h1>
+    <h1 class="display-4">&#9921</h1>
+</div>
+
+<div class="menu-container">
+    <div class="menu">
+        <button type="button" class="btn btn-dark btn-lg btn-block menu-button" onclick="location.href = '/CheckersGames/Create'">New Game</button>
+        <button class="btn btn-dark btn-lg menu-button" onclick="location.href = '/CheckersGames/'">Load Game</button>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+@page
+@model WebApp.Pages.CheckersGameStates.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Loads</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckersGame[0].Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CheckersGame) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-page="./State" asp-route-id="@item.Id">View loads</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

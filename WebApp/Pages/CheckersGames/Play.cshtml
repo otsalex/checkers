@@ -1,0 +1,107 @@
+﻿@page
+@using GameBrain
+@model WebApp.Pages.CheckersGames.PlayModel
+
+@{
+    ViewData["Title"] = "Play";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<div class="board-frame">
+    <div class="game-stats">
+        <p style="font-size: 30px">Current turn: @(Model.Game.CheckersState!.NextMoveByWhite ? Model.Game.Player1Name: Model.Game.Player2Name)</p>
+        <p style="font-size: 30px">@(Model.Game.CheckersState!.NextMoveByWhite ?Html.Raw("&#9921;") : Html.Raw("&#9923;"))</p>
+    <p>@Model.Game.CheckersState!.ToString()</p>
+        @{
+        if (Model.Brain.IsGameOver())
+        {
+            <p>Winner is - <b>@Model.Brain.Game.GameWonByPlayer</b> !</p>
+        }
+    }
+    </div>
+    <div class="board">
+        @{
+            var board = Model.Game.CheckersState.GameBoard;
+            var height = board!.Length;
+            var width = board[0].Length;
+
+        }
+        @for (int y = 0; y < height; y++)
+        {
+
+            <div class="board-row">
+                @for (int x = 0; x < width; x++)
+                {
+                    <text>
+                        <div
+                            @{
+                                if (Model.Brain.CanPieceMoveForward(x, y, Model.Game) && GetSquareBackgroundColor(x, y) != "possibleMove" && Model.EatIsMandatory == false)
+                                {
+                                    @Html.Raw($"onclick=\"window.location = 'Play?id={Model.Game.Id}&x={x}&y={y}'\"")
+                                }
+                            }
+                            @{
+                                if (GetSquareBackgroundColor(x, y) == "possibleMove" && Model.EatIsMandatory == false)
+                                {
+                                    <text>
+                                        onclick="window.location = 'Play?id=@Model.Game.Id&destX=@x&destY=@y&startX=@GetQueryArgument("x")&startY=@GetQueryArgument("y")'"
+                                    </text>
+                                }
+                                if (Model.EatIsMandatory)
+                                {
+                                    foreach (var cords in Model.EatingCoordinates)
+                                    {
+                                        if (cords.destX == x && cords.destY == y)
+                                        {
+                                            <text>
+                                                onclick="window.location = 'Play?id=@Model.Game.Id&startX=@cords.startX&startY=@cords.startY&eatX=@cords.eatX&eatY=@cords.eatY&destX=@cords.destX&destY=@cords.destY'"
+                                            </text>
+                                        }
+                                    }
+                                }
+                            }
+                            class="board-cell 
+                @GetSquareBackgroundColor(x, y) 
+                @GetPieceClass(board[y][x]) 
+                @{foreach (var cords in Model.EatingCoordinates) { if (cords.destX == x && cords.destY == y) { @(Html.Raw("possibleMove")) } } }                
+            @(Model.Brain.CanPieceMoveForward(x, y, Model.Game) && Model.EatIsMandatory == false ? "turn" : "")">
+                            <p></p></div>
+                    </text>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@functions
+{
+
+    string GetSquareBackgroundColor(int x, int y)
+    {
+        if (Model.PossibleMoves.Count == 0 || !Model.PossibleMoves.Contains((x, y)) || Model.Brain.GetForcedCheckersMove(x, y, Model.Game).Count > 0)
+        {
+            return (x + y) % 2 != 0 ? "black" : "white";
+        }
+        return "possibleMove";
+    }
+
+    string GetPieceClass(ESquareState piece)
+    {
+        switch (piece)
+        {
+            case ESquareState.Blank:
+                return "";
+            case ESquareState.White:
+                return "black-pawn";
+            default:
+                return "white-pawn";
+        }
+    }
+
+    string GetQueryArgument(string arg)
+    {
+        return @HttpContext.Request.Query[arg].ToString();
+    }
+
+}

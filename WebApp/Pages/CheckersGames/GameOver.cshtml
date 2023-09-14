@@ -1,0 +1,63 @@
+﻿@page
+@using GameBrain
+@model WebApp.Pages.Games.GameOver
+@using Domain
+
+@{
+    ViewData["Title"] = "Game over!";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<title></title>
+
+<div class="board-frame">
+    <div class="game-stats">
+
+        <p>@Model!.Game!.CheckersState!.ToString()</p>
+        <p>Winner is <b>@Model.Game.GameWonByPlayer</b>!</p>
+        
+    </div>
+    <div class="board">
+        @{
+            var board = Model.Game.CheckersState.GameBoard;
+            var height = board!.Length;
+            var width = board[0].Length;
+
+        }
+        @for (int y = 0; y < height; y++)
+        {
+
+            <div class="board-row">
+                @for (int x = 0; x < width; x++)
+                {
+                    <text>
+                        <div class="board-cell @GetSquareBackgroundColor(x, y) @GetPieceClass(@Model.Game!.CheckersState!.GameBoard![y][x])"><p></p></div>
+                    </text>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@functions
+{
+    string GetSquareBackgroundColor(int x, int y)
+    {
+        return (x + y) % 2 != 0 ? "black" : "white";
+    }
+
+    string GetPieceClass(ESquareState piece)
+    {
+        switch (piece)
+        {
+            case ESquareState.Blank:
+                return "";
+            case ESquareState.White:
+                return "white-pawn";
+            default:
+                return "black-pawn";
+        }
+    }
+}
+>

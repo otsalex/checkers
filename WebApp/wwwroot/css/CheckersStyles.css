@@ -1,0 +1,146 @@
+* {
+    box-sizing: border-box;
+}
+/* Game Board */
+
+.board-frame {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    padding: 100px 80px 0 0;
+}
+
+.board {
+    border: 1px solid black;
+    padding: 10px;
+    width: fit-content;
+    background-color: black;
+}
+
+.board-row {
+    display:flex;
+    margin: 0;
+}
+
+.board-cell {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+    width: 50px;
+    transition: background-color 0.4s;
+}
+
+.white {
+    background-color: white;
+    content: '9815';
+}
+
+.black {
+    background-color: black;
+    color: white;
+}
+/* Current turn hover effect */
+.turn:hover {
+    background-color: rgb(143, 138, 138);
+    cursor: pointer;
+}
+
+
+/* Buttons */
+.black-pawn {
+}
+
+.black-pawn::after {
+    font-size: 35px;
+    content: '\26C0';
+}
+
+.white-pawn {
+}
+
+.white-pawn::after {
+    font-size: 35px;
+    content: '\26C2';
+}
+
+
+.possibleMove {
+    background-color: rgb(142, 138, 138);
+    transition: background-color 0.4s;
+}
+
+.possibleMove:hover {
+    background-color: rgb(126, 126, 126);
+    cursor: pointer;
+}
+
+/* That piece which moves */
+.selectedPiece {
+    background-color: rgb(83, 80, 80);
+}
+
+/* Testid UI */
+.frame {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    margin:auto;
+    align-items: center;
+
+}
+
+.game-stats {
+    margin-bottom: auto;
+    margin-right: 50px;
+}
+
+.test-controls {
+    display: inline-block;
+    width: 260px;
+    min-height: 100%;
+    background-color: gray;
+    text-align: center;
+    box-sizing: content-box;
+}
+
+.test-controls h2 {
+    margin: 20px 0 10px 0;
+}
+
+.test-controls-button {
+    padding: 40px;
+}
+
+.piece-container {
+    align-content: center;
+}
+
+.piece-container div div{ 
+    display: inline;
+    padding-right: 20px;
+}
+
+/* index */
+.menu-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+
+.menu {
+    width: 300px;
+    height: 250px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 7px;
+}
+
+.menu-button {
+    margin: 12px;
+    width: 70%;
+}

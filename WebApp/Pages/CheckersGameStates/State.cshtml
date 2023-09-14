@@ -1,0 +1,44 @@
+﻿@page
+@model WebApp.Pages.CheckersGameStates.StateModel
+
+@{
+    ViewData["Title"] = "State";
+}
+
+<h1>"@Model.Game?.Name" Loads</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckersGameState[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckersGameState[0].CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckersGameState[0].NextMoveByWhite)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CheckersGameState) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NextMoveByWhite)
+            </td>
+            <td>
+                <button onclick="location.href = '../CheckersGames/Play?gameId=@item.CheckersGameId&stateId=@item.Id'">Continue game from this load</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

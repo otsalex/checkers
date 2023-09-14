@@ -1,0 +1,54 @@
+@page
+@model WebApp.Pages_CheckersGameStates.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>CheckersGameState</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CheckersGameState.CreatedAt" class="control-label"></label>
+                <input asp-for="CheckersGameState.CreatedAt" class="form-control" />
+                <span asp-validation-for="CheckersGameState.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckersGameState.NextMoveByWhite" class="control-label"></label>
+                <input asp-for="CheckersGameState.NextMoveByWhite" class="form-control" />
+                <span asp-validation-for="CheckersGameState.NextMoveByWhite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckersGameState.BoardSerializedString" class="control-label"></label>
+                <input asp-for="CheckersGameState.BoardSerializedString" class="form-control" />
+                <span asp-validation-for="CheckersGameState.BoardSerializedString" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckersGameState.CheckersGameId" class="control-label"></label>
+                <input asp-for="CheckersGameState.CheckersGameId" class="form-control" />
+                <span asp-validation-for="CheckersGameState.CheckersGameId" class="text-danger"></span>
+            </div>
+            @* <div class="form-group form-check"> *@
+            @*     <label class="form-check-label"> *@
+            @*         <input class="form-check-input" asp-for="CheckersGame.CheckersState!.NextMoveByWhite" /> @Html.DisplayNameFor(model => model.CheckersGame.CheckersState!.NextMoveByWhite) *@
+            @*     </label> *@
+            @* </div> *@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
